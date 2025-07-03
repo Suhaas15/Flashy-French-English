@@ -23,14 +23,12 @@ def next_card():
     canvas.itemconfig(card_count, text=f"Words left: {len(to_learn)}", fill="black")
     canvas.itemconfig(card_background, image=card_front_img)
     flip_timer=window.after(5000, flip_card)
-    #count_update
 
 def flip_card():
     canvas.itemconfig(card_title, text="English", fill="white")
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
     canvas.itemconfig(card_count, text=f"Words left: {len(to_learn)}", fill="white")
     canvas.itemconfig(card_background, image=card_back_img)
-    #count_update
 
 def is_known():
     to_learn.remove(current_card)
