@@ -7,7 +7,7 @@ to_learn={}
 current_card={}
 
 try:
-    data = pandas.read_csv("data/word_to_learn.csv")
+    data = pandas.read_csv("data/words_to_learn.csv")
 except FileNotFoundError:
     original_data = pandas.read_csv("data/french_words.csv")
     to_learn = original_data.to_dict(orient="records")
@@ -20,6 +20,7 @@ def next_card():
     current_card = random.choice(to_learn)
     canvas.itemconfig(card_title, text="French", fill="black")
     canvas.itemconfig(card_word, text=current_card["French"], fill="black")
+    canvas.itemconfig(card_count, text=f"Words left: {len(to_learn)}", fill="black")
     canvas.itemconfig(card_background, image=card_front_img)
     flip_timer=window.after(5000, flip_card)
     #count_update
@@ -27,6 +28,7 @@ def next_card():
 def flip_card():
     canvas.itemconfig(card_title, text="English", fill="white")
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
+    canvas.itemconfig(card_count, text=f"Words left: {len(to_learn)}", fill="white")
     canvas.itemconfig(card_background, image=card_back_img)
     #count_update
 
@@ -48,6 +50,7 @@ card_back_img = PhotoImage(file="images/card_back.png")
 card_background = canvas.create_image(400, 263, image=card_front_img)
 card_title = canvas.create_text(400, 150, text="Title", font=("Ariel", 40, "italic"))
 card_word = canvas.create_text(400, 263, text="word", font=("Ariel", 60, "bold "))
+card_count = canvas.create_text(700, 50, text=f"Words left: {len(to_learn)}", font=("Ariel", 20))
 canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0 )
 canvas.grid(row=0, column=0, columnspan=2)
 
